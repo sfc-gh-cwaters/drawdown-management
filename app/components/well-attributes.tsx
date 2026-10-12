@@ -3,6 +3,7 @@ import { useEffect, useState, useCallback } from "react"
 
 interface WellMaster {
   WELL_ASSET_ID: string
+  ENERTIA_COMPLETION_ID: string | null
   COUNTY: string | null
   LEGAL_WELL_NAME: string | null
   PROCOUNT_AREA: string | null
@@ -33,6 +34,8 @@ const LOCATION_FIELDS: { key: keyof WellMaster; label: string }[] = [
 ]
 
 const WELL_FIELDS: { key: keyof WellMaster; label: string }[] = [
+  { key: "WELL_ASSET_ID", label: "Asset ID" },
+  { key: "ENERTIA_COMPLETION_ID", label: "Enertia Completion ID" },
   { key: "LEGAL_WELL_NAME", label: "Legal Well Name" },
   { key: "WELL_TYPE", label: "Well Type" },
   { key: "STATUS", label: "Status" },
