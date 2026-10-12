@@ -1,0 +1,25 @@
+create or replace TABLE CYGNET_TRANSFORMATION.CORE_COMMON_MODEL.ASSET_ATTR_DAY (
+	BUSINESS_UNIT VARCHAR(16777216) COMMENT 'Organizational partition identifier for multi-tenant or multi-region deployments',
+	ASSET_ID VARCHAR(16777216) NOT NULL COMMENT 'References ASSET.ASSET_ID — the equipment this daily value belongs to',
+	ATTR_ID VARCHAR(16777216) NOT NULL COMMENT 'References ATTR_DFNTN.ATTR_ID — the business-defined attribute being measured',
+	DATE_PERIOD DATE NOT NULL COMMENT 'The production or measurement day this value represents',
+	VERSION_NUMBER NUMBER(38,0) NOT NULL COMMENT 'Numeric version identifier enabling ordered version history (1, 2, 3...)',
+	VERSION_NAME VARCHAR(16777216) COMMENT 'Descriptive version label (e.g., PRELIMINARY, REVISED, FINAL)',
+	VALUE_NUMBER FLOAT COMMENT 'Numeric value for this versioned daily measurement',
+	VALUE_TEXT VARCHAR(16777216) COMMENT 'Text value for this versioned daily measurement',
+	VALUE_DATE DATE COMMENT 'Date value for this versioned daily measurement',
+	VALUE_TIMESTAMP TIMESTAMP_LTZ(9) COMMENT 'Timestamp value for this versioned daily measurement',
+	VALUE_JSON VARIANT COMMENT 'Semi-structured value for complex measurements',
+	CONTEXT VARIANT COMMENT 'Semi-structured JSON providing additional context for this version (e.g., source, method, assumptions)',
+	CONFIG VARIANT,
+	CREATE_AUTHOR VARCHAR(16777216) COMMENT 'User or process that created this record',
+	CREATE_TIMESTAMP TIMESTAMP_LTZ(9) DEFAULT CURRENT_TIMESTAMP() COMMENT 'Timestamp when this version was created',
+	CREATE_COMMENT VARCHAR(16777216) COMMENT 'Note or reason associated with version creation',
+	UPDATE_TIMESTAMP TIMESTAMP_LTZ(9) COMMENT 'Timestamp of the most recent update to this version',
+	UPDATE_HISTORY VARIANT COMMENT 'Note or reason associated with the most recent update',
+	RECORD_SOURCE VARCHAR(16777216) COMMENT 'Source system or origin from which this record was loaded',
+	constraint PK_ASSET_ATTR_DAY primary key (ASSET_ID, ATTR_ID, DATE_PERIOD, VERSION_NUMBER),
+	constraint FK_ASSET_ATTR_DAY_ASSET foreign key (ASSET_ID) references CYGNET_TRANSFORMATION.CORE_COMMON_MODEL.ASSET(ASSET_ID),
+	constraint FK_ASSET_ATTR_DAY_ATTR_DFNTN foreign key (ATTR_ID) references CYGNET_TRANSFORMATION.CORE_COMMON_MODEL.ATTR_DFNTN(ATTR_ID)
+)COMMENT='Stores daily attribute measurements per asset. Each record represents a single attribute value for one day, supporting multiple value types and versioning via VERSION_CODE. Used for daily production volumes, allocation values, and other day-grain metrics that are not high-frequency time series.'
+;

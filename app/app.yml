@@ -1,0 +1,33 @@
+version: 2
+
+name: DRAWDOWN_MANAGEMENT_DAILY
+database: CYGNET_TRANSFORMATION
+schema: APP
+query_warehouse: REPORTING_WH
+
+label: Drawdown Management
+description: Daily well drawdown monitoring with time series charts, annotations, and well attributes.
+icon: public/icon.svg
+
+ignore:
+  - node_modules
+  - .env*
+  - __pycache__
+  - "*.pyc"
+  - .next
+  - .git
+  - snowflake.log
+
+install:
+  commands:
+    - [npm, ci, "--include=dev"]
+
+build:
+  commands:
+    - [npm, run, build]
+    - [cp, -r, .next/static, .next/standalone/.next/static]
+    - [cp, -r, public, .next/standalone/public]
+    - [rm, -rf, node_modules]
+
+run:
+  command: [node, .next/standalone/server.js]

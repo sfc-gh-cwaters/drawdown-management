@@ -1,9 +1,0 @@
-definition_version: "2"
-mixins:
-  default_connection:
-    connection: &connection
-      account: SFPSCOGS-CWATERS_AWS_US_EAST_1
-      database: DEV
-      schema: CORE
-      role: SYSADMIN
-      warehouse: COMPUTE_WH

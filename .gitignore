@@ -29,3 +29,8 @@ venv/
 
 # Snowflake
 .snowflake/
+
+# App build artifacts
+output/
+*.tsbuildinfo
+snowflake.log
