@@ -1,5 +1,5 @@
 # Drawdown Management App — Active Object Dependencies
-**Account:** OPJQICB-DEV (Adamas) | **App:** DRAWDOWN_MANAGEMENT_DAILY | **Warehouse:** REPORTING_WH | **Updated:** 2026-10-06
+**Account:** OPJQICB-DEV (Adamas) | **App:** DRAWDOWN_MANAGEMENT_DAILY | **Warehouse:** REPORTING_WH | **Updated:** 2026-10-12
 
 Only objects used by the running app code (`app/` API routes) and everything they depend on, traced from the live definitions on the account. All objects are in the `CYGNET_TRANSFORMATION` database unless noted.
 
@@ -65,14 +65,14 @@ The app reads `DAILY_EST_DRAWDOWN` from `ASSET_ATTR_DAY`. Those values are produ
 
 | Object | Type | Schema | Role |
 |---|---|---|---|
-| TASK_LOAD_ACTIVE_WELLS_DAILY_DRAWDOWN | Task | APP | Daily 06:00 Central on REPORTING_WH; recalculates the previous Central day for all active wells |
-| SP_LOAD_ACTIVE_WELLS_DAILY_DRAWDOWN | Procedure | APP | Calls SP_LOAD_WELL_DAILY_DRAWDOWN for every active well |
-| SP_LOAD_WELL_DAILY_DRAWDOWN | Procedure | APP | Replaces DAILY_EST_DRAWDOWN rows in ASSET_ATTR_DAY for one well and date range |
-| SP_EST_DAILY_DRAWDOWN | Procedure | APP | Older merge-based loader; also calls FN_EST_DAILY_DRAWDOWN |
-| FN_EST_DAILY_DRAWDOWN | Table function (SQL) | APP | Reads TUBING_PRESSURE from VW_ASSET_ATTR_TAG_VALUE for one well and passes it to FN_EST_DAILY_DRAWDOWN_CORE |
+| TASK_LOAD_ACTIVE_WELLS_DAILY_DRAWDOWN | Task | APP | Daily 06:00 Central on REPORTING_WH; calls SP_LOAD_ACTIVE_WELLS_DAILY_DRAWDOWN_SET for the previous Central day |
+| SP_LOAD_ACTIVE_WELLS_DAILY_DRAWDOWN_SET | Procedure | APP | Set-based load for every active well: one TAG_VALUE scan and one FN_EST_DAILY_DRAWDOWN_CORE call (partitioned by well) per chunk. Used by the task and for backfills |
+| SP_LOAD_ACTIVE_WELLS_DAILY_DRAWDOWN | Procedure | APP | Older per-well loop over SP_LOAD_WELL_DAILY_DRAWDOWN; too slow for the task (~1,700 wells), kept for reference |
+| SP_LOAD_WELL_DAILY_DRAWDOWN | Procedure | APP | Replaces DAILY_EST_DRAWDOWN rows in ASSET_ATTR_DAY for one well and date range (single-well reload) |
+| FN_EST_DAILY_DRAWDOWN | Table function (SQL) | APP | Reads TUBING_PRESSURE from VW_ASSET_ATTR_TAG_VALUE for one well and passes it to FN_EST_DAILY_DRAWDOWN_CORE (used by SP_LOAD_WELL_DAILY_DRAWDOWN) |
 | FN_EST_DAILY_DRAWDOWN_CORE | Table function (Python) | APP | Stable-decline algorithm: excludes surface excursions, derives daily drawdown |
 
-Source: `sql/functions/fn_est_daily_drawdown.sql` (both functions), `sql/tasks/task_load_active_wells_daily_drawdown.sql` (task).
+Source: `sql/03_functions/`, `sql/04_procedures/`, `sql/05_tasks/`. The legacy `SP_EST_DAILY_DRAWDOWN` still exists on DEV/TEST but is unused and not in the repo.
 
 ## Changes since the 2026-10-02 version
 
@@ -83,16 +83,18 @@ Source: `sql/functions/fn_est_daily_drawdown.sql` (both functions), `sql/tasks/t
 - `EDW.ANALYTICS.DIM_WELL_COMPLETION_MASTER` is a **view**, not a table.
 - App warehouse changed from `CYGNET_TRANSFORMING_WH` to **`REPORTING_WH`**.
 - New section for the drawdown calculation objects. The drawdown functions are consolidated into `FN_EST_DAILY_DRAWDOWN` and `FN_EST_DAILY_DRAWDOWN_CORE`; the interim `_V2` functions were dropped.
+- The task now calls the set-based `SP_LOAD_ACTIVE_WELLS_DAILY_DRAWDOWN_SET` (the per-well loop hit the 60-minute task timeout).
 
 Note: the unused `/api/drawdown-daily` route (it read `DEV.CORE.V_WELL_DRAWDOWN_DAILY`, which doesn't exist on Adamas) was removed from the source on 2026-10-12.
 
 ## Summary
 
 **Total objects the app depends on: 24**
+
 - 5 APP objects: 4 views (VW_DRAWDOWN_WELL_HEADER, VW_DRAWDOWN_WELL_MASTER, VW_DRAWDOWN_WELL_TAG_VALUES, VW_DRAWDOWN_WELL_TAG_VALUES_CURRENT) and 1 table function (FN_DRAWDOWN_WELL_VALUES_LTTB)
 - 4 CORE_COMMON_MODEL views
 - 10 CORE_COMMON_MODEL tables
 - 2 EDW.ANALYTICS views
 - 3 external source objects (MDM_RAW, TRANSFORMATION)
 
-Plus 6 drawdown calculation objects (1 task, 3 procedures, 2 functions) that populate `ASSET_ATTR_DAY` outside the app.
+Plus 6 drawdown calculation objects in the repo (1 task, 3 procedures, 2 functions) that populate `ASSET_ATTR_DAY` outside the app.

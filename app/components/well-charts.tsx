@@ -340,14 +340,19 @@ export function WellCharts({ wellId, wellName, onAnnotationSaved }: Props) {
           axisLabel: { fontSize: 10 },
           position: i === 0 ? "left" : "right",
           offset: i > 1 ? (i - 1) * 60 : 0,
-          ...(key === "DAILY_EST_DRAWDOWN" ? { min: -10, max: 100 } : {}),
+          // Default to -10..100 psi/d but widen to fit out-of-range values instead of clipping them
+          ...(key === "DAILY_EST_DRAWDOWN"
+            ? { min: (v: { min: number }) => Math.min(-10, Math.floor(v.min)), max: (v: { max: number }) => Math.max(100, Math.ceil(v.max)) }
+            : {}),
         })
       }
       series.push({
         name: cfg.label,
         type: "line",
         yAxisIndex: unitAxis.get(cfg.unit),
-        showSymbol: false,
+        // Daily drawdown is one point per day and often sparse; without symbols isolated days are invisible
+        showSymbol: key === "DAILY_EST_DRAWDOWN",
+        symbolSize: 4,
         lineStyle: { width: 1.5 },
         color: cfg.color,
         data,

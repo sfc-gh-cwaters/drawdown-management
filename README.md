@@ -16,7 +16,7 @@ sql/03_functions/   Drawdown calculation and LTTB time series functions
 sql/04_procedures/  Daily drawdown load procedures
 sql/05_tasks/       Daily drawdown task
 sql/grants/         Privileges needed to deploy the app as CYGNET_ADMIN
-docs/               Dependency map, object inventory, end-user permissions
+docs/               Dependency map, end-user permissions (markdown + PDF)
 ```
 
 Every file under `sql/` was exported with `GET_DDL` from TEST (OPJQICB-TEST)
@@ -69,8 +69,12 @@ files; compare the definitions instead.
   promoting, then consider retiring the per-well procedures.
 - **Unused legacy procedure on DEV/TEST:** `APP.SP_EST_DAILY_DRAWDOWN` is not
   used by the app or task and is not included here; don't migrate it.
-- **Drawdown history.** TEST holds very little DAILY_EST_DRAWDOWN history;
-  backfill (step 4) before user acceptance testing.
+- **Drawdown history.** TEST holds DAILY_EST_DRAWDOWN only from 2026-06-01,
+  for ~270–400 wells per day (721 wells total); many wells have short or
+  gappy series. Backfill (step 4) before user acceptance testing. The
+  Drawdown chart's y-axis defaults to −10..100 psi/d and widens to fit
+  out-of-range values, and daily points are drawn as markers so isolated
+  days stay visible.
 
 ## Environments
 
