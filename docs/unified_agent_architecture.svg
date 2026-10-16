@@ -1,0 +1,295 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1760" height="1290" viewBox="0 0 1760 1290" font-family="Arial, Helvetica, sans-serif">
+  <defs>
+    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0L10 5L0 10z" fill="#222"/>
+    </marker>
+    <marker id="ahb" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0L10 5L0 10z" fill="#2d6cb5"/>
+    </marker>
+    <style>
+      .ttl{font-size:15px;font-weight:bold}
+      .lbl{font-size:13px;font-weight:bold}
+      .sm{font-size:11px}
+      .xs{font-size:10px}
+      .it{font-size:10.5px;font-style:italic;fill:#444}
+      .yel{fill:#fdf9c4;stroke:#f2c230;stroke-width:2}
+      .blu{fill:#cfe4ff;stroke:#4a90e2;stroke-width:2}
+      .bluL{fill:#e8f1ff;stroke:#4a90e2;stroke-width:1.2}
+      .grn{fill:#e3fae3;stroke:#54c45e;stroke-width:2}
+      .grnL{fill:#f4fff4;stroke:#54c45e;stroke-width:1.2}
+      .gate{fill:#ffe3cc;stroke:#e67e22;stroke-width:2.5}
+      .src{fill:#f2f2f2;stroke:#555;stroke-width:1.5}
+      .ln{stroke:#222;stroke-width:1.4;fill:none}
+      .lnb{stroke:#2d6cb5;stroke-width:1.4;fill:none}
+      .dash{stroke-dasharray:6 4}
+    </style>
+  </defs>
+
+  <rect width="1760" height="1290" fill="#fff"/>
+  <text x="880" y="26" text-anchor="middle" class="ttl" font-size="18">Engineering Agents on a Unified Knowledge Graph — Snowflake Reference Architecture</text>
+
+  <!-- Users (Tier 0) -->
+  <g>
+    <circle cx="825" cy="52" r="11" fill="#1cc7e8"/><path d="M806 86a19 16 0 0 1 38 0z" fill="#1cc7e8"/>
+    <text x="825" y="100" text-anchor="middle" class="sm">Engineering / Operations</text>
+    <circle cx="1385" cy="52" r="11" fill="#1cc7e8"/><path d="M1366 86a19 16 0 0 1 38 0z" fill="#1cc7e8"/>
+    <text x="1385" y="100" text-anchor="middle" class="sm">Engineering / Operations</text>
+    <circle cx="72" cy="770" r="11" fill="#1cc7e8"/><path d="M53 804a19 16 0 0 1 38 0z" fill="#1cc7e8"/>
+    <text x="72" y="820" text-anchor="middle" class="sm">Domain, KPI and</text>
+    <text x="72" y="833" text-anchor="middle" class="sm">engineering SMEs</text>
+  </g>
+
+  <!-- Snowflake container -->
+  <rect x="180" y="112" width="1540" height="990" rx="6" fill="#edf5ff" stroke="#4c535d" stroke-width="2.5"/>
+  <text x="1705" y="1092" text-anchor="end" class="lbl" fill="#29b5e8">Snowflake</text>
+
+  <!-- Tier labels -->
+  <text x="192" y="215" class="it">Tier 1</text>
+  <text x="192" y="340" class="it">Tier 2 /</text>
+  <text x="192" y="353" class="it">retrieval</text>
+  <text x="192" y="500" class="it">Retrieval</text>
+  <text x="192" y="513" class="it">views</text>
+  <text x="192" y="980" class="it">Tier 3 · data</text>
+
+  <!-- Supervisor -->
+  <rect x="400" y="140" width="850" height="148" rx="5" class="yel"/>
+  <text x="825" y="162" text-anchor="middle" class="lbl">Supervising Agent — AGENT_ENT_ADVISOR</text>
+  <text x="825" y="178" text-anchor="middle" class="it">classifies · plans · dispatches · normalises · gates · cites — writes no SQL, reads no schema</text>
+  <rect x="415" y="190" width="150" height="46" rx="4" fill="#fffde6" stroke="#f2c230"/>
+  <text x="490" y="210" text-anchor="middle" class="sm" font-weight="bold">Plan builder</text>
+  <text x="490" y="225" text-anchor="middle" class="xs">classify · resolve · disciplines</text>
+  <rect x="580" y="190" width="150" height="46" rx="4" fill="#fffde6" stroke="#f2c230"/>
+  <text x="655" y="210" text-anchor="middle" class="sm" font-weight="bold">Dispatcher</text>
+  <text x="655" y="225" text-anchor="middle" class="xs">ask_* agent-as-tool</text>
+  <rect x="745" y="190" width="150" height="46" rx="4" fill="#fffde6" stroke="#f2c230"/>
+  <text x="820" y="210" text-anchor="middle" class="sm" font-weight="bold">Normaliser</text>
+  <text x="820" y="225" text-anchor="middle" class="xs">units · grain · time policy</text>
+  <rect x="910" y="190" width="150" height="46" rx="4" class="gate"/>
+  <text x="985" y="210" text-anchor="middle" class="sm" font-weight="bold">Evidence gate</text>
+  <text x="985" y="225" text-anchor="middle" class="xs">SP_EVIDENCE_GATE</text>
+  <rect x="1075" y="190" width="160" height="46" rx="4" fill="#fffde6" stroke="#f2c230"/>
+  <text x="1155" y="210" text-anchor="middle" class="sm" font-weight="bold">Synthesiser</text>
+  <text x="1155" y="225" text-anchor="middle" class="xs">answer contract + citations</text>
+  <path d="M565 213h15M730 213h15M895 213h15M1060 213h15" class="ln" marker-end="url(#ah)"/>
+  <rect x="415" y="246" width="820" height="32" rx="3" fill="#fff" stroke="#b8a64a" stroke-dasharray="4 3"/>
+  <text x="825" y="266" text-anchor="middle" class="sm">Analysis plan artifact (ADV_ANALYSIS_PLAN) — steps, budgets, discipline filter, KG_VERSION pinned · draft / executed / degraded / blocked</text>
+
+  <!-- User to supervisor -->
+  <path d="M825 106V138" class="ln" marker-start="url(#ah)" marker-end="url(#ah)"/>
+
+  <!-- Engineering search services -->
+  <rect x="400" y="315" width="160" height="50" rx="4" class="yel"/>
+  <text x="480" y="336" text-anchor="middle" class="lbl">Principles Search</text>
+  <text x="480" y="352" text-anchor="middle" class="xs">Cortex Search · text + vector</text>
+  <rect x="575" y="315" width="160" height="50" rx="4" class="yel"/>
+  <text x="655" y="336" text-anchor="middle" class="lbl">Literature Search</text>
+  <text x="655" y="352" text-anchor="middle" class="xs">Cortex Search · cited passages</text>
+  <path d="M480 315V290M655 315V290" class="ln" marker-end="url(#ah)"/>
+
+  <!-- Domain agents -->
+  <rect x="910" y="315" width="78" height="50" rx="4" class="yel"/>
+  <text x="949" y="337" text-anchor="middle" class="lbl">Wells</text><text x="949" y="352" text-anchor="middle" class="xs">agent · live</text>
+  <rect x="996" y="315" width="84" height="50" rx="4" class="yel"/>
+  <text x="1038" y="337" text-anchor="middle" class="lbl">Production</text><text x="1038" y="352" text-anchor="middle" class="xs">agent</text>
+  <rect x="1088" y="315" width="78" height="50" rx="4" class="yel"/>
+  <text x="1127" y="337" text-anchor="middle" class="lbl">SCADA</text><text x="1127" y="352" text-anchor="middle" class="xs">agent</text>
+  <rect x="1174" y="315" width="76" height="50" rx="4" class="yel dash"/>
+  <text x="1212" y="337" text-anchor="middle" class="lbl">Land</text><text x="1212" y="352" text-anchor="middle" class="xs">planned</text>
+  <path d="M949 315V290M1038 315V290M1127 315V290M1212 315V290" class="ln" marker-start="url(#ah)" marker-end="url(#ah)"/>
+  <text x="903" y="334" text-anchor="end" class="xs" fill="#7a5a00">ask_* ↓</text>
+  <text x="903" y="348" text-anchor="end" class="xs" fill="#7a5a00">envelopes ↑</text>
+
+  <!-- Vocabulary search and semantic views -->
+  <path d="M949 365V374M1038 365V374M1127 365V374M1212 365V374M949 374H1212" class="ln"/>
+  <rect x="910" y="392" width="160" height="46" rx="4" class="yel"/>
+  <text x="990" y="411" text-anchor="middle" class="lbl">Vocabulary Search</text>
+  <text x="990" y="427" text-anchor="middle" class="xs">own domain + ENTERPRISE</text>
+  <path d="M990 392V374" class="ln" marker-end="url(#ah)"/>
+  <rect x="1090" y="392" width="160" height="46" rx="4" class="blu"/>
+  <text x="1170" y="411" text-anchor="middle" class="lbl">Semantic Views</text>
+  <text x="1170" y="427" text-anchor="middle" class="xs">Cortex Analyst text-to-SQL</text>
+  <path d="M1170 374V390" class="ln" marker-end="url(#ah)"/>
+
+  <!-- Retrieval views -->
+  <rect x="400" y="465" width="160" height="44" rx="4" class="bluL"/>
+  <text x="480" y="484" text-anchor="middle" class="sm" font-weight="bold">Concept profiles</text>
+  <text x="480" y="499" text-anchor="middle" class="xs">approved L3 · bound · disciplines</text>
+  <rect x="575" y="465" width="160" height="44" rx="4" class="bluL"/>
+  <text x="655" y="484" text-anchor="middle" class="sm" font-weight="bold">Document chunks</text>
+  <text x="655" y="499" text-anchor="middle" class="xs">licence-approved sources</text>
+  <rect x="750" y="465" width="145" height="44" rx="4" class="bluL"/>
+  <text x="822" y="481" text-anchor="middle" class="sm" font-weight="bold">Enterprise views</text>
+  <text x="822" y="494" text-anchor="middle" class="xs">KPI registry · grain · time</text>
+  <text x="822" y="505" text-anchor="middle" class="xs">authority · taxonomy</text>
+  <rect x="910" y="465" width="160" height="44" rx="4" class="bluL"/>
+  <text x="990" y="484" text-anchor="middle" class="sm" font-weight="bold">V_DOMAIN_CONTEXT</text>
+  <text x="990" y="499" text-anchor="middle" class="xs">authored / curated only</text>
+  <path d="M480 465V367M655 465V367" class="ln" marker-end="url(#ah)"/>
+  <path d="M822 465V290" class="ln" marker-end="url(#ah)"/>
+  <path d="M990 465V440" class="ln" marker-end="url(#ah)"/>
+  <path d="M480 535V511M655 535V511M822 535V511M990 535V511" class="lnb" marker-end="url(#ahb)"/>
+
+
+  <!-- Unified knowledge graph -->
+  <rect x="400" y="535" width="670" height="325" rx="6" class="blu"/>
+  <text x="735" y="558" text-anchor="middle" class="lbl" font-size="15">Unified Knowledge Graph — DS_ENT_KNOWLEDGE</text>
+  <text x="735" y="574" text-anchor="middle" class="it">store once · serve narrowly · trust and scope are attributes, not separate repositories</text>
+  <rect x="415" y="584" width="640" height="46" rx="3" fill="#fff" stroke="#4a90e2"/>
+  <text x="425" y="603" class="sm" font-weight="bold">L1 · Domain vocabulary</text>
+  <text x="425" y="620" class="xs">terms · rules · table/column semantics</text>
+  <text x="1045" y="603" text-anchor="end" class="xs">scope: data domain (WELLS, PRODUCTION, SCADA, LAND, COST)</text>
+  <text x="1045" y="620" text-anchor="end" class="xs">origin: authored · read by domain agents</text>
+  <rect x="415" y="636" width="640" height="46" rx="3" fill="#fff" stroke="#4a90e2"/>
+  <text x="425" y="655" class="sm" font-weight="bold">Shared taxonomy</text>
+  <text x="425" y="672" class="xs">equipment · job · failure classes · org units (IS_A / PART_OF)</text>
+  <text x="1045" y="655" text-anchor="end" class="xs">scope: ENTERPRISE + disciplines</text>
+  <text x="1045" y="672" text-anchor="end" class="xs">one owner · used by every layer</text>
+  <rect x="415" y="688" width="640" height="46" rx="3" fill="#fff" stroke="#4a90e2"/>
+  <text x="425" y="707" class="sm" font-weight="bold">L2 · Enterprise semantics</text>
+  <text x="425" y="724" class="xs">canonical measures · grain · time policy · authority precedence</text>
+  <text x="1045" y="707" text-anchor="end" class="xs">unscoped · origin: curated</text>
+  <text x="1045" y="724" text-anchor="end" class="xs">read by supervisor procedures</text>
+  <rect x="415" y="740" width="640" height="46" rx="3" fill="#fff" stroke="#4a90e2"/>
+  <text x="425" y="759" class="sm" font-weight="bold">L3 · Engineering knowledge</text>
+  <text x="425" y="776" class="xs">phenomena · mechanisms · diagnostics · discriminators · mitigations</text>
+  <text x="1045" y="759" text-anchor="end" class="xs">scope: discipline (DRILLING, PRODUCTION_ENG, INTEGRITY …)</text>
+  <text x="1045" y="776" text-anchor="end" class="xs">origin: extracted → SME reviewed · evidence-bound</text>
+  <g class="xs">
+    <rect x="415" y="798" width="95" height="24" rx="3" fill="#e8f1ff" stroke="#4a90e2"/><text x="462" y="814" text-anchor="middle">KG_NODE</text>
+    <rect x="518" y="798" width="95" height="24" rx="3" fill="#e8f1ff" stroke="#4a90e2"/><text x="565" y="814" text-anchor="middle">KG_EDGE</text>
+    <rect x="621" y="798" width="95" height="24" rx="3" fill="#e8f1ff" stroke="#4a90e2"/><text x="668" y="814" text-anchor="middle">KG_ALIAS</text>
+    <rect x="724" y="798" width="110" height="24" rx="3" fill="#e8f1ff" stroke="#4a90e2"/><text x="779" y="814" text-anchor="middle">KG_NODE_SCOPE</text>
+    <rect x="842" y="798" width="100" height="24" rx="3" fill="#e8f1ff" stroke="#4a90e2"/><text x="892" y="814" text-anchor="middle">KG_BINDING</text>
+    <rect x="950" y="798" width="105" height="24" rx="3" fill="#e8f1ff" stroke="#4a90e2"/><text x="1002" y="814" text-anchor="middle">KG_VERSION</text>
+  </g>
+  <text x="735" y="846" text-anchor="middle" class="xs">+ KG_SOURCE / sections / chunks · KG_TYPE_SCHEMA · validated writes (SP_KG_UPSERT_*) · consistency checks</text>
+
+  <!-- Authoring column -->
+  <rect x="205" y="548" width="165" height="56" rx="4" class="yel"/>
+  <text x="287" y="568" text-anchor="middle" class="lbl">Extraction pipeline</text>
+  <text x="287" y="583" text-anchor="middle" class="xs">parse · split · extract · resolve</text>
+  <text x="287" y="596" text-anchor="middle" class="xs">(build time only)</text>
+  <rect x="205" y="650" width="165" height="56" rx="4" class="gate"/>
+  <text x="287" y="672" text-anchor="middle" class="lbl">Staging + review</text>
+  <text x="287" y="688" text-anchor="middle" class="xs">SME approval before promotion</text>
+  <rect x="205" y="752" width="165" height="62" rx="4" class="blu"/>
+  <text x="287" y="773" text-anchor="middle" class="lbl">Knowledge Manager</text>
+  <text x="287" y="788" text-anchor="middle" class="lbl">App</text>
+  <text x="287" y="804" text-anchor="middle" class="xs">one editor for all layers</text>
+  <path d="M287 604V648" class="ln" marker-end="url(#ah)"/>
+  <path d="M287 752V708" class="ln" marker-end="url(#ah)"/>
+  <path d="M370 678H398" class="ln" marker-end="url(#ah)"/>
+  <text x="384" y="670" text-anchor="middle" class="xs">approved</text>
+  <path d="M100 785H203" class="ln" marker-start="url(#ah)" marker-end="url(#ah)"/>
+
+  <!-- Documents outside -->
+  <path d="M30 520h105v46c-26-10-52 12-105 0z" fill="#fff" stroke="#4c535d" stroke-width="1.5"/>
+  <text x="82" y="545" text-anchor="middle" class="sm" font-weight="bold">SPE papers</text>
+  <path d="M30 590h105v46c-26-10-52 12-105 0z" fill="#fff" stroke="#4c535d" stroke-width="1.5"/>
+  <text x="82" y="615" text-anchor="middle" class="sm" font-weight="bold">Textbooks</text>
+  <path d="M30 660h105v46c-26-10-52 12-105 0z" fill="#fff" stroke="#4c535d" stroke-width="1.5"/>
+  <text x="82" y="680" text-anchor="middle" class="sm" font-weight="bold">Internal</text>
+  <text x="82" y="694" text-anchor="middle" class="sm" font-weight="bold">standards</text>
+  <path d="M135 545L203 570M135 613L203 578M135 683L203 586" class="ln" marker-end="url(#ah)"/>
+
+  <!-- KPI calculation -->
+  <rect x="400" y="905" width="250" height="160" rx="5" class="blu"/>
+  <text x="525" y="926" text-anchor="middle" class="lbl">KPI / Performance Equations</text>
+  <text x="525" y="942" text-anchor="middle" class="xs">calculation only — definitions live in the graph</text>
+  <g class="xs">
+    <rect x="425" y="952" width="200" height="18" fill="#fff" stroke="#333"/><text x="525" y="965" text-anchor="middle">Calculated flowing BHP</text>
+    <rect x="425" y="974" width="200" height="18" fill="#fff" stroke="#333"/><text x="525" y="987" text-anchor="middle">Drawdown rate</text>
+    <rect x="425" y="996" width="200" height="18" fill="#fff" stroke="#333"/><text x="525" y="1009" text-anchor="middle">Productivity index</text>
+    <rect x="425" y="1018" width="200" height="18" fill="#fff" stroke="#333"/><text x="525" y="1031" text-anchor="middle">Lift efficiency</text>
+    <rect x="425" y="1040" width="200" height="18" fill="#fff" stroke="#333"/><text x="525" y="1053" text-anchor="middle">Build-up slope (dP/dt)</text>
+  </g>
+  <path d="M525 862V903" class="lnb dash" marker-end="url(#ahb)"/>
+  <text x="532" y="888" class="xs" fill="#2d6cb5">measure definitions</text>
+  <path d="M652 985H688" class="ln" marker-start="url(#ah)" marker-end="url(#ah)"/>
+  <text x="670" y="1003" text-anchor="middle" class="xs">CM</text>
+
+  <!-- Common model -->
+  <rect x="690" y="880" width="800" height="195" rx="5" class="grn"/>
+  <text x="1090" y="901" text-anchor="middle" class="lbl">Common Model — Integrated / Curated Data Sets</text>
+  <rect x="705" y="912" width="160" height="150" rx="4" fill="#fff6d6" stroke="#e0a800" stroke-width="2"/>
+  <text x="785" y="934" text-anchor="middle" class="sm" font-weight="bold">Well Master</text>
+  <text x="785" y="950" text-anchor="middle" class="xs">identity spine</text>
+  <text x="785" y="964" text-anchor="middle" class="xs">canonical well keys</text>
+  <text x="785" y="978" text-anchor="middle" class="xs">source keys mapped once</text>
+  <text x="785" y="1000" text-anchor="middle" class="it">agents combine</text>
+  <text x="785" y="1013" text-anchor="middle" class="it">evidence only on</text>
+  <text x="785" y="1026" text-anchor="middle" class="it">these keys</text>
+  <g class="sm">
+    <rect x="880" y="912" width="140" height="70" rx="4" class="grnL"/><text x="950" y="940" text-anchor="middle">SCADA Common</text><text x="950" y="955" text-anchor="middle">Model</text><text x="950" y="970" text-anchor="middle" class="xs">rates · pressures · GOR · WC</text>
+    <rect x="1030" y="912" width="140" height="70" rx="4" class="grnL"/><text x="1100" y="943" text-anchor="middle">Allocated</text><text x="1100" y="958" text-anchor="middle">Production Volumes</text>
+    <rect x="1180" y="912" width="140" height="70" rx="4" class="grnL"/><text x="1250" y="943" text-anchor="middle">Reservoir</text><text x="1250" y="958" text-anchor="middle">Characteristics</text>
+    <rect x="1330" y="912" width="145" height="70" rx="4" class="grnL"/><text x="1402" y="943" text-anchor="middle">Asset / Well</text><text x="1402" y="958" text-anchor="middle">Commentary</text>
+    <rect x="880" y="992" width="140" height="70" rx="4" class="grnL"/><text x="950" y="1023" text-anchor="middle">Drilling /</text><text x="950" y="1038" text-anchor="middle">Workover Data</text>
+    <rect x="1030" y="992" width="140" height="70" rx="4" class="grnL"/><text x="1100" y="1023" text-anchor="middle">Cost / Revenue</text><text x="1100" y="1038" text-anchor="middle" class="xs">no owning agent yet</text>
+    <rect x="1180" y="992" width="140" height="70" rx="4" class="grnL"/><text x="1250" y="1023" text-anchor="middle">Derived KPIs</text><text x="1250" y="1038" text-anchor="middle" class="xs">from CM process</text>
+    <rect x="1330" y="992" width="145" height="70" rx="4" class="grnL dash"/><text x="1402" y="1023" text-anchor="middle">Land entities</text><text x="1402" y="1038" text-anchor="middle" class="xs">not yet modelled</text>
+  </g>
+  <path d="M1170 440V878" class="ln" marker-end="url(#ah)"/>
+  <text x="1178" y="660" class="xs">query</text>
+
+  <!-- Analytical apps -->
+  <rect x="1290" y="140" width="190" height="160" rx="5" class="grn"/>
+  <text x="1385" y="164" text-anchor="middle" class="lbl">Analytical Applications</text>
+  <text x="1302" y="188" class="sm">• Snowflake App Runtime</text>
+  <text x="1302" y="206" class="sm">• Sigma</text>
+  <text x="1302" y="224" class="sm">• Power BI</text>
+  <text x="1302" y="242" class="sm">• Spotfire</text>
+  <text x="1302" y="270" class="xs">read data · write commentary</text>
+  <text x="1302" y="284" class="xs">(cited as commentary, not fact)</text>
+  <path d="M1385 106V138" class="ln" marker-start="url(#ah)" marker-end="url(#ah)"/>
+  <path d="M1385 302V878" class="ln" marker-start="url(#ah)" marker-end="url(#ah)"/>
+
+  <!-- Platform services -->
+  <g class="sm" font-weight="bold">
+    <rect x="1530" y="470" width="165" height="30" fill="#fff" stroke="#4a90e2" stroke-width="1.5"/><text x="1612" y="490" text-anchor="middle">Authentication</text>
+    <rect x="1530" y="504" width="165" height="30" fill="#fff" stroke="#4a90e2" stroke-width="1.5"/><text x="1612" y="524" text-anchor="middle">RBAC · Row Access</text>
+    <rect x="1530" y="538" width="165" height="30" fill="#fff" stroke="#4a90e2" stroke-width="1.5"/><text x="1612" y="558" text-anchor="middle">Lineage · Audit</text>
+    <rect x="1530" y="572" width="165" height="30" fill="#fff" stroke="#4a90e2" stroke-width="1.5"/><text x="1612" y="592" text-anchor="middle">Encryption</text>
+    <rect x="1530" y="606" width="165" height="30" fill="#fff" stroke="#4a90e2" stroke-width="1.5"/><text x="1612" y="626" text-anchor="middle">Observability</text>
+    <rect x="1530" y="640" width="165" height="30" fill="#fff" stroke="#4a90e2" stroke-width="1.5"/><text x="1612" y="660" text-anchor="middle">Caching</text>
+    <rect x="1530" y="674" width="165" height="30" fill="#fff" stroke="#4a90e2" stroke-width="1.5"/><text x="1612" y="694" text-anchor="middle">Secure Sharing</text>
+    <rect x="1530" y="708" width="165" height="30" fill="#fff" stroke="#4a90e2" stroke-width="1.5"/><text x="1612" y="728" text-anchor="middle">MCP servers</text>
+  </g>
+  <text x="1612" y="760" text-anchor="middle" class="it">governance shared by</text>
+  <text x="1612" y="773" text-anchor="middle" class="it">data and knowledge</text>
+
+  <!-- Question path note -->
+  <rect x="1530" y="140" width="165" height="160" rx="5" fill="#fff" stroke="#999"/>
+  <text x="1612" y="160" text-anchor="middle" class="sm" font-weight="bold">Question paths</text>
+  <text x="1540" y="180" class="xs"><tspan font-weight="bold">Factual / comparative</tspan></text>
+  <text x="1540" y="193" class="xs">one domain agent, no L3</text>
+  <text x="1540" y="211" class="xs"><tspan font-weight="bold">Conceptual</tspan></text>
+  <text x="1540" y="224" class="xs">principles + literature,</text>
+  <text x="1540" y="237" class="xs">no gate, no asset claims</text>
+  <text x="1540" y="255" class="xs"><tspan font-weight="bold">Diagnostic / prescriptive</tspan></text>
+  <text x="1540" y="268" class="xs">evidence → candidates →</text>
+  <text x="1540" y="281" class="xs">gate → cited answer</text>
+
+  <!-- Sources -->
+  <g class="lbl">
+    <rect x="730" y="1150" width="120" height="60" rx="3" class="src"/><text x="790" y="1176" text-anchor="middle">Cygnet</text><text x="790" y="1194" text-anchor="middle">SCADA</text>
+    <rect x="870" y="1150" width="120" height="60" rx="3" class="src"/><text x="930" y="1176" text-anchor="middle">Well</text><text x="930" y="1194" text-anchor="middle">Master</text>
+    <rect x="1010" y="1150" width="120" height="60" rx="3" class="src"/><text x="1070" y="1176" text-anchor="middle">Volumes</text><text x="1070" y="1194" text-anchor="middle">Allocation</text>
+    <rect x="1150" y="1150" width="120" height="60" rx="3" class="src"/><text x="1210" y="1185" text-anchor="middle">WellView</text>
+    <rect x="1290" y="1150" width="120" height="60" rx="3" class="src"/><text x="1350" y="1185" text-anchor="middle">ERP</text>
+  </g>
+  <path d="M790 1150V1077M930 1150V1077M1070 1150V1077M1210 1150V1077M1350 1150V1077" class="ln" marker-end="url(#ah)"/>
+
+  <!-- Legend -->
+  <g class="xs">
+    <text x="30" y="1138" class="sm" font-weight="bold">Legend</text>
+    <rect x="30" y="1148" width="22" height="14" class="yel"/><text x="60" y="1159">agent or search service</text>
+    <rect x="30" y="1168" width="22" height="14" class="blu"/><text x="60" y="1179">knowledge store / view</text>
+    <rect x="30" y="1188" width="22" height="14" class="grn"/><text x="60" y="1199">integrated data</text>
+    <rect x="210" y="1148" width="22" height="14" class="gate"/><text x="240" y="1159">deterministic control / human gate</text>
+    <rect x="210" y="1168" width="22" height="14" fill="#fff" stroke="#333" stroke-dasharray="4 3"/><text x="240" y="1179">planned</text>
+    <path d="M210 1195h22" class="lnb dash" marker-end="url(#ahb)"/><text x="240" y="1199">definition / projection</text>
+  </g>
+  <text x="30" y="1240" class="it">Knowledge is stored once; each consumer reads a narrow view. Extracted engineering content never reaches the vocabulary view.</text>
+  <text x="30" y="1256" class="it">Concepts are applied to an asset only when SP_EVIDENCE_GATE finds their required evidence — from any domain, a governed function, or user input.</text>
+</svg>
