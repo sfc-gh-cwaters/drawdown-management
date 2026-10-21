@@ -1,6 +1,7 @@
 import Image from "next/image"
 import { APP_TITLE, LOGO_SRC } from "@/lib/constants"
 import { ThemeToggle } from "@/components/theme-toggle"
+import { BUILD_INFO, BUILD_LABEL } from "@/lib/build-info"
 
 /**
  * AppHeader — top navigation bar.
@@ -22,7 +23,13 @@ export function AppHeader() {
         <span className="text-sm font-semibold tracking-tight">
           {APP_TITLE}
         </span>
-        <div className="ml-auto">
+        <div className="ml-auto flex items-center gap-3">
+          <span
+            className="text-xs text-muted-foreground font-mono"
+            title={`Commit ${BUILD_INFO.commit} (${BUILD_INFO.branch}), built ${BUILD_INFO.builtAt}`}
+          >
+            {BUILD_LABEL}
+          </span>
           <ThemeToggle />
         </div>
       </div>

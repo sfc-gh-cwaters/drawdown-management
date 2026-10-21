@@ -13,6 +13,7 @@ version 2; query warehouse `REPORTING_WH`).
 | `/api/well-attributes` | GET | `APP.VW_DRAWDOWN_WELL_MASTER` — fixed well attributes |
 | `/api/commentary` | GET, POST, PUT, DELETE | `CORE_COMMON_MODEL.ASSET_COMMENTARY` (+ `ASSET` for business unit) |
 | `/api/chart-annotations` | GET, POST | `CORE_COMMON_MODEL.ASSET_COMMENTARY` rows with `NOTE_JSON:signal` |
+| `/api/version` | GET | none — returns `build-info.json` (git commit the deployed build came from) |
 
 All object names are fully qualified with `CYGNET_TRANSFORMATION`.
 
@@ -42,8 +43,14 @@ npx tsc --noEmit
 ## Deploy
 
 ```bash
-snow app deploy --connection <conn>
+npm run deploy -- --connection <conn>
 ```
+
+Always deploy through `npm run deploy`, not bare `snow app deploy`. It first
+writes `build-info.json` (git commit, branch, dirty flag, timestamps), which
+the Snowflake-side build cannot generate because `.git` is not uploaded. The
+commit appears in the app header and at `/api/version`; a `-dirty` suffix
+means uncommitted changes under `app/` were deployed.
 
 The CLI uploads to `@APP.DRAWDOWN_MANAGEMENT_DAILY_CODE`, builds on the system
 compute pool into `APP.DRAWDOWN_MANAGEMENT_DAILY_REPO`, and promotes a new

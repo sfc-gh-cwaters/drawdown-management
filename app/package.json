@@ -3,8 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "predev": "node scripts/write-build-info.mjs",
     "dev": "next dev",
+    "prebuild": "node scripts/write-build-info.mjs",
     "build": "next build",
+    "deploy": "node scripts/write-build-info.mjs && snow app deploy",
     "start": "next start",
     "test": "vitest run"
   },
